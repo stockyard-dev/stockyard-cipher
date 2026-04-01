@@ -1,0 +1,16 @@
+services:
+  cipher:
+    image: ghcr.io/stockyard-dev/stockyard-cipher:latest
+    ports:
+      - "8870:8870"
+    environment:
+      - PORT=${STOCKYARD_PORT:-8870}
+      - DATA_DIR=${STOCKYARD_DATA_DIR:-/data}
+      - CIPHER_ENCRYPTION_KEY=${CIPHER_ENCRYPTION_KEY}
+      - CIPHER_LICENSE_KEY=${STOCKYARD_CIPHER_LICENSE_KEY:-}
+    volumes:
+      - cipher-data:/data
+    restart: unless-stopped
+volumes:
+  cipher-data:
+    driver: local
